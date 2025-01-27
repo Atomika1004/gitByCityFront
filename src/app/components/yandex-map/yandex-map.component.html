@@ -1,0 +1,30 @@
+<div style="display: grid; grid-template-columns: 1fr 3fr; height: 100vh;">
+  <div style="background-color: #7c7777; padding: 20px;">
+    <div id="list-container" style="max-height: 80vh; overflow-y: auto;">
+      <form class="example-form">
+        <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)" style="display: flex; flex-direction: column;">
+          <div *ngFor="let address of addressList; let i = index; trackBy: trackByIndex" class="address-item" cdkDrag style="margin-bottom: 10px;">
+            <mat-form-field class="example-full-width">
+              <mat-label>Улица {{ i + 1 }}</mat-label>
+              <input style="font-size: small" matInput placeholder="Введите адрес" [(ngModel)]="addressList[i]" name="address-{{ i }}">
+            </mat-form-field>
+
+            <button mat-fab aria-label="Удалить адрес" (click)="removeAddress(i)">
+              <mat-icon>delete</mat-icon>
+            </button>
+
+            <button mat-mini-fab aria-label="Меню" cdkDragHandle>
+              <mat-icon>menu</mat-icon>
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <mat-slide-toggle [(ngModel)]="startEditing" (change)="toggleEditor()">Редактирование маршрута</mat-slide-toggle>
+
+    <button (click)="addNewRoute()"> Добавить маршурт</button>
+  </div>
+
+  <div id="map" style="height: 100%;"></div>
+</div>

@@ -1,0 +1,14 @@
+<div class="container-grid">
+  <div class="leftCol">
+      <div class="rowRoute" *ngFor="let route of currentRoutesList$ | async; let i = index">
+        <div class="dataInCard" [id]="route.id">
+          <a routerLink="/main/routes/edit/{{ route.id }}"
+             routerLinkActive="activebutton"
+             ariaCurrentWhenActive="page" style="display: block; text-decoration: none; color: inherit;">
+            {{ route.name }}
+          </a>
+        </div>
+      </div>
+  </div>
+</div>
+<router-outlet></router-outlet>

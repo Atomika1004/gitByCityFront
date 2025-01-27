@@ -1,0 +1,81 @@
+<div class="container-grid">
+  <div class="leftCol">
+    <div class="backButton">
+      <button  (click)="this.routeService.changeDataForPoints(null)" class="back" routerLink="/main/routes">
+        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
+          <path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z" />
+        </svg>
+      </button>
+    </div>
+    <div style="background-color: #f0f0f0; padding: 10px;">
+      <form class="create-card-route">
+      <mat-vertical-stepper style="background-color: #f0f0f0">
+        <!-- Шаг 1: Название маршрута -->
+        <mat-step label="Название маршрута">
+          <form class="inputForm">
+            <mat-form-field class="inputFormField">
+              <mat-label>Название</mat-label>
+              <input [(ngModel)]="routeName" name="routeName" placeholder="Введите название маршрута" class="input-field" matInput required>
+              <mat-error *ngIf="!routeName.trim()">Поле не может быть пустым</mat-error>
+            </mat-form-field>
+          </form>
+          <div style="margin-top: 20px;">
+            <button mat-button matStepperNext>Далее</button>
+          </div>
+        </mat-step>
+
+        <!-- Шаг 2: Описание маршрута -->
+        <mat-step label="Описание маршрута">
+          <form class="inputForm">
+            <mat-form-field class="inputFormField">
+              <mat-label>Описание</mat-label>
+              <textarea [(ngModel)]="routeDescription" name="routeDescription" placeholder="Введите описание маршрута" class="textarea-field" matInput  maxlength="1000" (input)="onInput($event)"></textarea>
+              <mat-hint style="color: black" align="end">{{value().length}}/1000</mat-hint>
+            </mat-form-field>
+          </form>
+          <div style="margin-top: 20px;">
+            <button mat-button matStepperPrevious>Назад</button>
+            <button mat-button matStepperNext>Далее</button>
+          </div>
+        </mat-step>
+
+        <!-- Шаг 3: Фотографии маршрута -->
+        <mat-step label="Фотографии маршрута">
+          <div>
+            <input type="file" (change)="saveFiles($event)" multiple class="file-input" />
+          </div>
+          {{ this.files.length }}
+          <div style="margin-top: 20px;">
+            <button mat-button matStepperPrevious>Назад</button>
+          </div>
+        </mat-step>
+
+      </mat-vertical-stepper>
+
+
+      <!-- Точки -->
+
+      <div class="points-scroll">
+        <mat-stepper orientation="vertical" style="background-color: #f0f0f0;">
+          <mat-step *ngFor="let point of pointsListInRoute; let i = index">
+            <ng-template matStepLabel>{{ point.point?.name }}</ng-template>
+            <ng-template matStepContent>
+              <p style="color: #333333">{{ point.point?.description }}</p>
+              <div style="margin-top: 10px;">
+                <button mat-button matStepperPrevious *ngIf="i > 0">Назад</button>
+                <button mat-button matStepperNext *ngIf="i < pointsListInRoute.length - 1">Далее</button>
+              </div>
+            </ng-template>
+          </mat-step>
+        </mat-stepper>
+      </div>
+
+      <button mat-button style="margin-top: 20px;"
+              (click)="saveRoute()"
+              [disabled]="!routeName.trim()">
+        Сохранить маршрут
+      </button>
+      </form>
+    </div>
+  </div>
+</div>

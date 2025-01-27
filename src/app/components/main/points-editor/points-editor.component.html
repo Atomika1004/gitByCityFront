@@ -1,0 +1,84 @@
+<div class="container-grids">
+  <div class="leftColumn">
+    <div class="backButton">
+      <button routerLink="/main/points">
+        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/></svg>
+      </button>
+      <h1>
+        {{ pointOfInterest?.name }}
+      </h1>
+      <div class="point-content">
+        <p class="descr">{{ pointOfInterest?.description }} </p>
+        <div class="example-button-container">
+          <p>{{ likes }}</p>
+          <button (click)="like()" mat-fab [ngClass]="{ 'liked': isLiked, 'not-liked': !isLiked }"  aria-label="Example icon button with a heart icon">
+            <mat-icon>favorite</mat-icon>
+          </button>
+        </div>
+
+
+        <div class="slider-container">
+          <div class="slider-wrapper" [style.transform]="'translateX(' + currentSlide * -100 + '%)'">
+            <div class="slide" *ngFor="let img of pointOfInterest?.images">
+              <img [src]="img" alt="Image" />
+            </div>
+          </div>
+          <button class="prev-btn" (click)="prevSlide()"> < </button>
+          <button class="next-btn" (click)="nextSlide()"> > </button>
+        </div>
+      </div>
+    </div>
+    <div class="comments">
+      <h2>Комментарии</h2>
+      <form class="inputForm">
+        <mat-form-field class="inputFormField">
+          <mat-label>Комментарий</mat-label>
+          <textarea [(ngModel)]="comment" name="comment" placeholder="Введите комментарий"
+                    class="textarea-field"
+                    matInput
+                    required
+                    maxlength="1000" (input)="onInput($event)"
+          ></textarea>
+          <mat-error *ngIf="!comment.trim()">Поле не может быть пустым</mat-error>
+          <mat-hint style="color: black" align="end">{{value().length}}/1000</mat-hint>
+        </mat-form-field>
+        <div style="margin-top: 5px;  text-align: right;">
+          <button (click)="addCommentForPoint()"
+                  mat-button
+                  [disabled]="!comment.trim()">
+            Добавить
+          </button>
+        </div>
+      </form>
+      <div class="comment-list">
+        <div *ngFor="let comment of currentCommentList$ | async; let i = index" class="comment-card">
+          <div class="comment-text">
+            <ng-container *ngIf="editedCommentId !== comment.id">
+              <p>{{ comment.text }}</p>
+            </ng-container>
+            <ng-container *ngIf="editedCommentId === comment.id">
+              <mat-form-field class="inputFormField">
+                <mat-label>Редактировать комментарий</mat-label>
+                <textarea [(ngModel)]="editedCommentText" matInput required></textarea>
+                <mat-error *ngIf="!editedCommentText.trim()">Поле не может быть пустым</mat-error>
+              </mat-form-field>
+              <div class="comment-actions">
+                <button mat-button color="primary"
+                        (click)="saveEditedComment(comment.id)"
+                        [disabled]="!editedCommentText.trim()">
+                Сохранить
+                </button>
+                <button mat-button color="warn" (click)="cancelEdit()">Отменить</button>
+              </div>
+            </ng-container>
+          </div>
+          <div class="comment-actions" *ngIf="editedCommentId !== comment.id && clientId == comment.clientId">
+            <button mat-button color="primary" (click)="editComment(comment)">Редактировать</button>
+            <button mat-button color="warn" (click)="deleteComment(comment.id)">Удалить</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

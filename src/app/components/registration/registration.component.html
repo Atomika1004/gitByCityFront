@@ -1,0 +1,83 @@
+<div class="body">
+  <div class="center-container">
+    <div class="login-header">
+      <h2>Регистрация</h2>
+    </div>
+    <form class="example-form" #registrationForm="ngForm">
+      <mat-form-field class="example-full-width">
+        <mat-label>Фио</mat-label>
+        <input
+          type="text"
+          name="fio"
+          placeholder="Иванов Иван Иванович"
+          aria-label="Фио"
+          matInput
+          [(ngModel)]="registrationObj.fio"
+          required>
+        <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+        <mat-error *ngIf="!registrationObj.fio.trim()">Поле не может быть пустым</mat-error>
+      </mat-form-field>
+
+
+      <mat-form-field class="example-full-width">
+        <mat-label>Почта</mat-label>
+        <input
+          type="text"
+          name="email"
+          placeholder="ivanov@mail.ru"
+          aria-label="Почта"
+          matInput
+          [(ngModel)]="registrationObj.email"
+          required>
+        <mat-icon matSuffix>email</mat-icon>
+        <mat-error *ngIf="!registrationObj.email.trim()">Поле не может быть пустым</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width">
+        <mat-label>Логин</mat-label>
+        <input
+          type="text"
+          name="username"
+          placeholder="Введите логин"
+          aria-label="Логин"
+          matInput
+          [(ngModel)]="registrationObj.username"
+          required>
+        <mat-icon matSuffix>person</mat-icon>
+        <mat-error *ngIf="!registrationObj.username.trim()">Поле не может быть пустым</mat-error>
+      </mat-form-field>
+
+
+      <mat-form-field class="example-full-width">
+        <mat-label>Пароль</mat-label>
+        <input
+          [type]="hide() ? 'password' : 'text'"
+          name="password"
+          placeholder="Введите пароль"
+          aria-label="Пароль"
+          matInput
+          [(ngModel)]="registrationObj.pwd"
+          required>
+        <button
+          mat-icon-button
+          matSuffix
+          (click)="clickEvent($event)"
+          [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="hide()"
+        >
+          <mat-icon>{{hide() ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+        <mat-error *ngIf="!registrationObj.pwd.trim()">Поле не может быть пустым</mat-error>
+      </mat-form-field>
+
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="onRegistration()"
+        [disabled]="!registrationObj.fio.trim() || !registrationObj.username.trim() || !registrationObj.pwd.trim()">
+        Зарегистрироваться
+      </button>
+      <button mat-raised-button color="primary" (click)="goLogin()">Войти</button>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,12 @@
+{
+  "credential": [
+    {"id": "0", "name": "Алексей", "surname": "Попов"},
+      {"id": "1", "name": "Алексей", "surname": "Ожерельев"},
+      {"id": "2", "name": "Дмитрий", "surname": "Щербиновский"},
+      {"id": "3", "name": "Никита", "surname": "Носонов"},
+      {"id": "4", "name": "Ярик", "surname": "Батунин"}
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}

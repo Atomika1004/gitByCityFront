@@ -1,0 +1,97 @@
+<div class="container-grid">
+  <div class="leftCol">
+    <div class="backButton">
+      <button routerLink="/main/routes">
+        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/></svg>
+      </button>
+    </div>
+    <div style="background-color: #f0f0f0">
+      <h2> {{ route?.name }} </h2>
+      <div class="description">
+        {{ route?.description }}
+      </div>
+      <div class="example-button-container">
+        <p>{{ likes }}</p>
+        <button (click)="like()" mat-fab [ngClass]="{ 'liked': isLiked, 'not-liked': !isLiked }" aria-label="Example icon button with a heart icon">
+          <mat-icon>favorite</mat-icon>
+        </button>
+      </div>
+
+      <div class="slider-container">
+        <div class="slider-wrapper" [style.transform]="'translateX(' + currentSlide * -100 + '%)'">
+          <div class="slide" *ngFor="let img of route?.images">
+            <img [src]="img" alt="Image" />
+          </div>
+        </div>
+        <button class="prev-btn" (click)="prevSlide()"> < </button>
+        <button class="next-btn" (click)="nextSlide()"> > </button>
+      </div>
+
+      <div style="padding: 10px;">
+        <mat-stepper orientation="vertical" style="background-color: #f0f0f0; color: #333333">
+          <mat-step  *ngFor="let point of pointsInRoute; let i = index">
+            <ng-template matStepLabel>{{ point?.name }}</ng-template>
+            <ng-template matStepContent>
+              <p>{{ point?.description }}</p>
+
+              <div style="margin-top: 10px;">
+                <button mat-button matStepperPrevious *ngIf="i > 0">Назад</button>
+                <button mat-button matStepperNext *ngIf="i < pointsInRoute.length - 1">Далее</button>
+              </div>
+            </ng-template>
+          </mat-step>
+        </mat-stepper>
+      </div>
+
+      <div class="comments">
+        <h2>Комментарии</h2>
+        <form class="inputForm">
+          <mat-form-field class="inputFormField">
+            <mat-label>Комментарий</mat-label>
+            <textarea [(ngModel)]="comment" name="comment" placeholder="Введите комментарий" class="textarea-field" matInput required  maxlength="1000" (input)="onInput($event)"></textarea>
+            <mat-error *ngIf="!comment.trim()">Поле не может быть пустым</mat-error>
+            <mat-hint style="color: black" align="end">{{value().length}}/1000</mat-hint>
+          </mat-form-field>
+          <div style="margin-top: 5px;  text-align: right;">
+            <button (click)="addCommentForRoute()"
+                    mat-button
+                    [disabled]="!comment.trim()">
+              Добавить</button>
+          </div>
+        </form>
+        <div class="comment-list">
+          <div *ngFor="let comment of currentCommentList$ | async; let i = index" class="comment-card">
+            <div class="comment-text">
+              <ng-container *ngIf="editedCommentId !== comment.id">
+                <p>{{ comment.text }}</p>
+              </ng-container>
+              <ng-container *ngIf="editedCommentId === comment.id">
+                <mat-form-field class="inputFormField">
+                  <mat-label>Редактировать комментарий</mat-label>
+                  <textarea [(ngModel)]="editedCommentText" matInput required></textarea>
+                  <mat-error *ngIf="!editedCommentText.trim()">Поле не может быть пустым</mat-error>
+                </mat-form-field>
+                <div class="comment-actions">
+                  <button mat-button color="primary"
+                          (click)="saveEditedComment(comment.id)"
+                          [disabled]="!editedCommentText.trim()">
+                    Сохранить
+                  </button>
+                  <button mat-button color="warn" (click)="cancelEdit()">Отменить</button>
+                </div>
+              </ng-container>
+            </div>
+            <div class="comment-actions" *ngIf="editedCommentId !== comment.id && clientId == comment.clientId">
+              <button mat-button color="primary" (click)="editComment(comment)">Редактировать</button>
+              <button mat-button color="warn" (click)="deleteComment(comment.id)">Удалить</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+</div>
+

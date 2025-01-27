@@ -1,0 +1,14 @@
+<div class="container-grid">
+  <div class="leftCol">
+      <div class="rowRoute" *ngFor="let point of currentListPoints$ | async">
+        <div class="dataInCard" [id]="point.id">
+          <a routerLink="/main/points/edit/{{ point.id }}"
+             routerLinkActive="activebutton"
+             ariaCurrentWhenActive="page" style="display: block; text-decoration: none; color: inherit;">
+            {{ point.name }}
+          </a>
+        </div>
+      </div>
+  </div>
+</div>
+

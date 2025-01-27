@@ -1,0 +1,40 @@
+<div class="body">
+<div class="center-container">
+  <div class="login-header">
+    <h2>Вход</h2>
+  </div>
+  <form class="example-form">
+    <mat-form-field class="example-full-width">
+      <mat-label>Логин</mat-label>
+      <input type="text"
+             name="username"
+             placeholder="Введите логин"
+             aria-label="Логин"
+             matInput
+             [(ngModel)]="loginObj.username">
+      <mat-icon matSuffix>person</mat-icon>
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <mat-label>Пароль</mat-label>
+      <input [type]="hide() ? 'password' : 'text'"
+             name="password"
+             placeholder="Введите пароль"
+             aria-label="Пароль"
+             matInput
+             [(ngModel)]="loginObj.password">
+      <button
+        mat-icon-button
+        matSuffix
+        (click)="clickEvent($event)"
+        [attr.aria-label]="'Hide password'"
+        [attr.aria-pressed]="hide()"
+      >
+        <mat-icon>{{hide() ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" (click)="onLogin()">Войти</button>
+    <button mat-raised-button color="primary" (click)="goRegistration()">Регистрация</button>
+  </form>
+</div>
+</div>
