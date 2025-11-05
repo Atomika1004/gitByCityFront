@@ -23,7 +23,7 @@ export class ProfileComponent implements OnInit {
   }
 
   outLogin() {
-    localStorage.removeItem('token');
+    localStorage.removeItem('accessToken');
     localStorage.removeItem('user');
     this.router.navigate(['/login']);
   }

@@ -14,9 +14,7 @@ export class LoginComponent implements OnInit{
     password: ''
   };
 
-  constructor(private router: Router, private loginService: LoginService, private route: Router) {
-
-  }
+  constructor(private router: Router, private loginService: LoginService, private route: Router) {}
   ngOnInit() {
 
   }
@@ -28,10 +26,10 @@ export class LoginComponent implements OnInit{
     this.loginService.onLogin(this.loginObj).subscribe((res: any) => {
 
       debugger
-      console.log('res', res.token)
-      localStorage.setItem('token', res.token);
+      console.log('res', res.accessToken)
+      localStorage.setItem('accessToken', res.accessToken);
+      localStorage.setItem('refreshToken', res.refreshToken);
       localStorage.setItem('user', this.loginObj.username);
-      // this.router.navigate(['/main']);
       window.location.href = '/main';
 
     })

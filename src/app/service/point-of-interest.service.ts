@@ -26,7 +26,6 @@ export class PointOfInterestService {
 
   constructor(private http: HttpClient) { }
 
-
   getAllPoints(): Observable<PointOfInterest[]> {
     return this.http.get<PointOfInterest[]> (this.backUrl).pipe();
   }

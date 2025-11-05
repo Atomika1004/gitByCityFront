@@ -11,7 +11,7 @@ export class CustomIntepretatorService implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     if (isPlatformBrowser(this.platformId)) {
-    const localToken = localStorage.getItem('token');
+    const localToken = localStorage.getItem('accessToken');
     if (localToken) {
       req = req.clone({ headers: req.headers.set('Authorization', 'Bearer ' + localToken) });
     }

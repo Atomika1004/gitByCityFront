@@ -18,8 +18,6 @@ export class PointsComponent implements OnInit{
   private listPoints = new BehaviorSubject<PointOfInterest[]>([]);
   currentListPoints$ = this.listPoints.asObservable();
 
-
-
   pointService: PointOfInterestService;
 
   map: any

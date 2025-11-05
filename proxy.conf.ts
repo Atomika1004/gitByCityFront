@@ -1,7 +1,6 @@
 const route = '/api/base';
 
 const config = {
-  // target: 'http://git-by-city-backend:8081',
   target: 'http://localhost:8081',
   changeOrigin: true,
   secure: false,

@@ -45,39 +45,4 @@ export class RoutesService {
     // @ts-ignore
     return this.http.post(this.backUrl + '/' + routeId + '/like?clientUsername=' + username).pipe();
   }
-
-  // async getAllRoutes(): Promise<any> {
-  //   return fetch(this.url, {
-  //     method: 'GET'
-  //   }).then(response => response.json())
-  // }
-  //
-  // async updateRoute(id:string, newRoute: Route): Promise<any> {
-  //   return fetch(this.url + '/' + id, {
-  //     method: 'PUT',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //     body: JSON.stringify(newRoute)
-  //   })
-  // }
-  //
-  // async getRouteOnId(id: string | undefined): Promise<any> {
-  //   return fetch(this.url + '/' + id, {
-  //     method: 'GET',
-  //   }).then(response => response.json())
-  // }
-  //
-  // async addNewRoute(route: Route): Promise<any> {
-  //     return fetch(this.url, {
-  //       method: 'POST',
-  //       body: JSON.stringify(route)
-  //     }).then(response => response.json())
-  // }
-  //
-  // async deleteRoute(id: string): Promise<any> {
-  //   return fetch(this.url + '/' + id, {
-  //     method: 'DELETE',
-  //   })
-  // }
 }

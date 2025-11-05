@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {NavigationEnd, NavigationStart, Router} from '@angular/router';
+import {NavigationEnd, Router} from '@angular/router';
 import {MapStateService} from '../../service/map-state.service';
 
 @Component({
@@ -20,7 +20,7 @@ export class MainComponent implements OnInit{
   }
 
   outLogin() {
-    localStorage.removeItem('token');
+    localStorage.removeItem('accessToken');
     localStorage.removeItem('user');
     this.router.navigate(['/login']);
   }

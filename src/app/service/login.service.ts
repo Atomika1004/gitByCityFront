@@ -6,7 +6,7 @@ import {HttpClient} from '@angular/common/http';
   providedIn: 'root'
 })
 export class LoginService {
-  private loginUrl = 'http://localhost:8081/api/login';
+  private loginUrl = 'http://localhost:8081/api/auth/login';
   private regUrl = 'http://localhost:8081/api/registration';
 
   constructor(
@@ -14,6 +14,7 @@ export class LoginService {
   }
 
   onLogin(obj: any): Observable<any> {
+    debugger
     return this.http.post(this.loginUrl, obj);
   }
 
